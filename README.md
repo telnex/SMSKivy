@@ -1,4 +1,4 @@
-# Программа создания СМС-рассылки через GSM-модем
+# СМС-рассылка через GSM-модем
 **Версия:** 1.0.0 | **Python:** 3.9 | **Kivy:** 2.1 | **Gammu:** 3.2.4
 
 ![Иллюстрация к проекту](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOQifOGxT15hvFsdkp1D8cri-QhD3z5VGk8d6UNqNvWyXcse-6-dtrrpgNvD4JI1ve8my5T6IZiFTl9SnuV4-aCuOwWUnYs-gaVe9e4We6LZQTEBohIBfqJrwDA0SN3-I5jAd-1vFY6ksDdDHRuTt9jOaXIkiIIRX5ScLOFA0j5FdlL0EPTZSI_mjMmA/s1600/photo_2022-07-14_01-38-19.jpg)
