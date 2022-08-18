@@ -1,0 +1,263 @@
+<Windows>:
+    log: logger
+    input_sms: input_sms
+    config_label: config_label
+    info_label: info_label
+    progress_bar: progress_bar
+    start_btn: start_btn
+    stop_btn: stop_btn
+    sym_info: sym_info
+    sms_info: sms_info
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 5
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.06, 0.44, 0.43, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5
+            Label:
+                text: '[b]МОНИТОРИНГ[/b]'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 25
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    id: logger
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    padding: 10, 10
+                    markup: 1
+                    color: (0, 0, 0, 1)
+                    font_size: 14
+            BoxLayout:
+                padding: 10
+                orientation: 'vertical'
+                size_hint: 1, None
+                size: 0, 60
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    id: info_label
+                    size_hint: 1, None
+                    markup: 1
+                    text_size: self.size
+                    size: 0, 25
+                    font_size: 12
+                    halign: 'center'
+                    valign: 'bottom'
+                ProgressBar:
+                    id: progress_bar
+                    size_hint: 1, None
+                    size: 0, 25
+                    value: 50
+                    max: 100
+
+        # ПРАВЫЙ БЛОК - SMS
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5
+            Label:
+                text: '[b]СМС[/b]'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 25
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            TextInput:
+                id: input_sms
+                hint_text: 'Введите текст сообщения...\nНесколько СМС будут отправлены как одно!'
+                size_hint: 1, 1
+                multiline: True
+                padding: 10
+                font_size: 14
+                background_active: 'atlas://data/images/defaulttheme/textinput'
+                background_disabled_normal: 'atlas://data/images/defaulttheme/textinput'
+            BoxLayout:
+                size_hint: 1, None
+                size: 0, 20
+                spacing: 5
+                Label:
+                    id: sym_info
+                    size_hint: 1, None
+                    markup: 1
+                    text_size: self.size
+                    size: 180, 20
+                    font_size: 12
+                    halign: 'center'
+                    valign: 'middle'
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Color:
+                            rgba: (1, 1, 1, 1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                Label:
+                    id: sms_info
+                    size_hint: 1, None
+                    markup: 1
+                    text_size: self.size
+                    size: 180, 20
+                    font_size: 12
+                    halign: 'center'
+                    valign: 'middle'
+                    color: 0, 0, 0, 1
+                    canvas.before:
+                        Color:
+                            rgba: (1, 1, 1, 1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            Label:
+                id: config_label
+                size_hint: 1, .3
+                markup: 1
+                text_size: self.size
+                font_size: 12
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            Button:
+                text: 'СПИСОК РАССЫЛКИ'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 30
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                background_normal: ''
+                background_color: (0.05, 0.42, 0.24, 1)
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release:
+                    root.manager.current = 'alertlist'
+            Button:
+                text: 'ЖУРНАЛ'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 30
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                background_normal: ''
+                background_color: (0.05, 0.42, 0.24, 1)
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release:
+                    root.manager.current = 'eventlog'
+            Button:
+                text: 'НАСТРОЙКИ'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 30
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                background_normal: ''
+                background_color: (0.05, 0.42, 0.24, 1)
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release:
+                    root.manager.current = 'setconfig'
+            BoxLayout:
+                size_hint: 1, None
+                size: 0, 30
+                spacing: 5
+                Button:
+                    id: start_btn
+                    text: 'ЗАПУСТИТЬ ОПОВЕЩЕНИЕ'
+                    markup: 1
+                    size_hint: 1, None
+                    text_size: self.size
+                    size: 0, 30
+                    font_size: 14
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: ''
+                    background_color: (0.05, 0.42, 0.24, 1)
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release:
+                        root.StartSMS()
+                Button:
+                    id: stop_btn
+                    text: 'ОСТАНОВИТЬ'
+                    markup: 1
+                    size_hint: .4, None
+                    text_size: self.size
+                    size: 0, 30
+                    font_size: 14
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: ''
+                    background_color: (0.05, 0.42, 0.24, 1)
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release:
+                        root.stop_send()

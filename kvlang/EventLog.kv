@@ -1,0 +1,89 @@
+<EventLog>
+    label_log: label_log
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.06, 0.44, 0.43, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Label:
+            text: '[b]ЖУРНАЛ СОБЫТИЙ[/b]'
+            markup: 1
+            size_hint: 1, None
+            text_size: self.size
+            size: 0, 25
+            font_size: 14
+            halign: 'center'
+            valign: 'middle'
+            canvas.before:
+                Color:
+                    rgba: (0.05, 0.34, 0.42, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            canvas.before:
+                Color:
+                    rgba: (1, 1, 1, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Label:
+                id: label_log
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                padding: 10, 10
+                markup: 1
+                color: (0, 0, 0, 1)
+                font_size: 14
+        BoxLayout:
+            size_hint: 1, None
+            size: 0, 30
+            Label:
+
+            Button:
+                text: 'ОЧИСТИТЬ'
+                markup: 1
+                size_hint: None, None
+                text_size: self.size
+                size: 180, 30
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                background_normal: ''
+                background_color: (0.05, 0.42, 0.24, 1)
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release:
+                    root.DelLog()
+            Button:
+                text: 'НАЗАД'
+                markup: 1
+                size_hint: None, None
+                text_size: self.size
+                size: 180, 30
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                background_normal: ''
+                background_color: (0.05, 0.42, 0.24, 1)
+                canvas.before:
+                    Color:
+                        rgba: 0, 0, 0, 1
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                on_release:
+                    root.manager.current = 'main'

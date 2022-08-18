@@ -1,0 +1,3 @@
+[gammu]
+device = COM4
+connection = at

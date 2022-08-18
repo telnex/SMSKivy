@@ -1,0 +1,190 @@
+<SetConfig>
+    com_port: com_port
+    logging: logging
+    save_btn: save_btn
+    port_lb: port_lb
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 5
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.06, 0.44, 0.43, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: .7, 1
+            spacing: 5
+            Label:
+                text: 'НАСТРОЙКИ'
+                markup: 1
+                size_hint: 1, None
+                size: 0, 25
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            BoxLayout:
+                padding: 0, 0, 20, 0
+                spacing: 15
+                size_hint: 1, None
+                size: 0, 40
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .5
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                Label:
+                    size_hint: 1, None
+                    size: 0, 35
+                    text_size: self.size
+                    text: 'МОНИТОРИНГ ПРОГРАММЫ'
+                    font_size: 14
+                    halign: 'right'
+                    valign: 'middle'
+                Switch:
+                    id: logging
+                    size_hint: None, None
+                    size: 80, 40
+            BoxLayout:
+                padding: 0, 0, 20, 5
+                spacing: 15
+                size_hint: 1, None
+                size: 0, 40
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .5
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                Label:
+                    size_hint: 1, None
+                    size: 0, 35
+                    text_size: self.size
+                    text: 'COM-ПОРТ'
+                    font_size: 14
+                    halign: 'right'
+                    valign: 'middle'
+                TextInput:
+                    id: com_port
+                    size_hint: None, None
+                    size: 100, 30
+                    halign: 'center'
+                    valign: 'middle'
+                    font_size: 14
+                    cursor_blink: 0
+                    cursor_color: (0.05, 0.34, 0.42, 1)
+                    background_active: 'atlas://data/images/defaulttheme/textinput'
+                    background_disabled_normal: 'atlas://data/images/defaulttheme/textinput'
+            BoxLayout:
+                padding: 15
+                spacing: 15
+                size_hint: 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .5
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+                Label:
+                    id: port_lb
+                    font_size: 14
+                    markup: 1
+                    halign: 'center'
+                    valign: 'top'
+                    text_size: self.size
+
+            BoxLayout:
+                size_hint: 1, None
+                size: 0, 30
+                Button:
+                    id: save_btn
+                    text: 'СОХРАНИТЬ'
+                    markup: 1
+                    size_hint: 1, None
+                    text_size: self.size
+                    size: 0, 30
+                    font_size: 14
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: ''
+                    background_color: (0.05, 0.42, 0.24, 1)
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release:
+                        root.SaveConfig()
+                Button:
+                    text: 'НАЗАД'
+                    markup: 1
+                    size_hint: 1, None
+                    text_size: self.size
+                    size: 0, 30
+                    font_size: 14
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: ''
+                    background_color: (0.05, 0.42, 0.24, 1)
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release:
+                        root.save_btn.disabled = False
+                        root.manager.current = 'main'
+
+        BoxLayout:
+        # RIGHT INFO BLOCK
+            orientation: 'vertical'
+            size_hint: .7, 1
+            spacing: 5
+            Label:
+                text: 'ИНФО'
+                markup: 1
+                size_hint: 1, None
+                size: 0, 25
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    text: app.parse('info')
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    padding: 10, 10
+                    markup: 1
+                    color: (0, 0, 0, 1)
+                    font_size: 14
+                    on_ref_press:
+                        import webbrowser
+                        webbrowser.open('https://github.com/telnex/SMSKivy')

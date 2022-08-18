@@ -1,0 +1,194 @@
+<AlertList>
+# ЭКРАН: СПИСОК РАССЫЛКИ
+    float_btn: float_btn
+    sms: sms
+    data: dist_label # Список рассылки
+    input_json: input_json
+    label_info: label_info
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 5
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.06, 0.44, 0.43, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: '[b]ТЕЛЕФОННАЯ КНИГА[/b]'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 25
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+            TabbedPanel:
+                do_default_tab: False
+                background_color: 0,0,0,0
+                tab_width: 200
+                tab_height: 35
+                tab_pos: 'top_mid'
+
+                TabbedPanelItem:
+                    text: 'Абоненты'
+                    color: 1,1,1,1
+                    background_image: ''
+                    background_down: './style/acc_bg.png'
+                    background_normal: './style/acc_bg_2.png'
+                    on_touch_down:
+                        root.LoadFromJSON()
+                    ScrollView:
+                        size: self.size
+                        GridLayout:
+                            id: float_btn
+                            cols: 3
+                            spacing: 2
+                            size_hint_y: None
+                            # row_default_height: '35'
+                            # row_force_default: True
+                            padding: 0, 0, 0, 6
+                TabbedPanelItem:
+                    text: 'Редактирование'
+                    color: 1,1,1,1
+                    background_image: ''
+                    background_down: './style/acc_bg.png'
+                    background_normal: './style/acc_bg_2.png'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: 5
+                        TextInput:
+                            id: input_json
+                            size_hint: 1, 1
+                            multiline: True
+                            # font_name: 'segoeui'
+                            font_size: 14
+                            padding: 10
+                            background_active: 'atlas://data/images/defaulttheme/textinput'
+                            background_disabled_normal: 'atlas://data/images/defaulttheme/textinput'
+                        Label:
+                            id: label_info
+                            markup: 1
+                            size_hint: 1, .3
+                            text_size: self.size
+                            font_size: 14
+                            halign: 'center'
+                            valign: 'middle'
+                            canvas.before:
+                                Color:
+                                    rgba: (0.05, 0.34, 0.42, 1)
+                                Rectangle:
+                                    size: self.size
+                                    pos: self.pos
+                        Button:
+                            text: 'СОХРАНИТЬ'
+                            markup: 1
+                            size_hint: 1, None
+                            text_size: self.size
+                            size: 0, 30
+                            font_size: 14
+                            halign: 'center'
+                            valign: 'middle'
+                            background_normal: ''
+                            background_color: (0.05, 0.42, 0.24, 1)
+                            canvas.before:
+                                Color:
+                                    rgba: 0, 0, 0, 1
+                                Line:
+                                    width: 1
+                                    rectangle: self.x, self.y, self.width, self.height
+                            on_release:
+                                root.EditData()
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 9
+            id: sms
+            size_hint_x: 0.5
+            Label:
+                text: '[b]СПИСОК РАССЫЛКИ[/b]'
+                markup: 1
+                size_hint: 1, None
+                text_size: self.size
+                size: 0, 25
+                font_size: 14
+                halign: 'center'
+                valign: 'middle'
+                canvas.before:
+                    Color:
+                        rgba: (0.05, 0.34, 0.42, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    id: dist_label
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    padding: 10, 10
+                    markup: 1
+                    color: (0, 0, 0, .5)
+                    font_size: 15
+
+            BoxLayout:
+                size_hint: 1, None
+                size: 0, 30
+                Button:
+                    text: 'СОХРАНИТЬ'
+                    markup: 1
+                    size_hint: 1, None
+                    text_size: self.size
+                    size: 0, 30
+                    font_size: 14
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: ''
+                    background_color: (0.05, 0.42, 0.24, 1)
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release:
+                        root.manager.current = 'main'
+                Button:
+                    text: 'ОЧИСТИТЬ'
+                    markup: 1
+                    size_hint: 1, None
+                    text_size: self.size
+                    size: 0, 30
+                    font_size: 14
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: ''
+                    background_color: (0.05, 0.42, 0.24, 1)
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+                    on_release:
+                        root.DelList()
