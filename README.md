@@ -14,7 +14,7 @@
 
 ## Сборка программы под Windows
 Поместите исходный код программы в папку ``` test/src/```, в папку ``` test/``` добавьте файл single.spec и выполните команду ``` python -m PyInstaller single.spec```.
-После сборки .exe файла скопируйте в ``` test/src/``` папки data, kvlang и style.
+После сборки .exe файла скопируйте в ``` test/dist/``` папки data, kvlang и style, а также файл ``` gammurc```.
 
 ### Файл single.spec
 ```python
