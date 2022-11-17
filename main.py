@@ -9,10 +9,12 @@ from Screen.AlertList import *
 from Screen.EventLog import *
 from Screen.SetConfig import *
 
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 Config.set('graphics', 'width', '800')
 Config.set('graphics', 'height', '400')
 Config.set('graphics', 'minimum_width', '800')
 Config.set('graphics', 'minimum_height', '400')
+Config.write()
 
 
 def LoadConfig():

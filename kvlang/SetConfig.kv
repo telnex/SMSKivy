@@ -95,13 +95,16 @@
                     Line:
                         width: 1
                         rectangle: self.x, self.y, self.width, self.height
-                Label:
-                    id: port_lb
-                    font_size: 14
-                    markup: 1
-                    halign: 'center'
-                    valign: 'top'
-                    text_size: self.size
+                ScrollView:
+                    do_scroll_x: False
+                    do_scroll_y: True
+                    Label:
+                        id: port_lb
+                        font_size: 14
+                        markup: 1
+                        halign: 'center'
+                        valign: 'top'
+                        text_size: self.size
 
             BoxLayout:
                 size_hint: 1, None

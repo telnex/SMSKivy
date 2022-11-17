@@ -3,6 +3,8 @@ import gammu
 import threading
 import time
 import str_text as st
+import pyperclip
+import enchant
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 from functools import partial
@@ -157,7 +159,7 @@ class Windows(Screen):
                                     AppLog(msg)
                                     Clock.schedule_once(partial(self.UpdLog, msg, err=True))
                                     error = True
-                                    state_machine.Terminate()
+                                    # state_machine.Terminate()
                             if not error:
                                 msg = f'[b]{allName[tel]}[/b] - оповещён.'
                                 AppLog(msg)
@@ -190,4 +192,33 @@ class Windows(Screen):
     def SymSMS_info(self, dt=0):
         data_sms = gammu.SMSCounter(self.input_sms.text, UDH='NoUDH', Coding='Default')
         self.sym_info.text = f'Символов: {len(self.input_sms.text)}/{data_sms[1]}'
-        self.sms_info.text = f"Кол-во СМС: {data_sms[0]}"
+        if data_sms[0] > 2:
+            self.sms_info.text = f"Кол-во СМС: [color=#ff0000]{data_sms[0]}[/color]"
+        else:
+            self.sms_info.text = f"Кол-во СМС: {data_sms[0]}"
+
+    def check_spelling(self):
+        """ Запускаем проверку в отдельном потоке """
+        threading.Thread(target=self.spelling).start()
+
+    def spelling(self):
+        text = self.input_sms.text.split()
+        dictionary = enchant.Dict("ru_RU")
+        if len(text) != 0:
+            corrected = f'[b]Орфография:[/b] {self.input_sms.text}'
+            for word in text:
+                word = word.replace('.', '')
+                word = word.replace(',', '')
+                if word.isalpha():
+                    if dictionary.check(word) is False:
+                        if word.upper() not in ['ЕВСПД', 'РСПД', 'ПРС', 'ГРС', 'ГПУ', 'УТТИСТ', 'ИТЦ', 'УПЦ']:
+                            if len(dictionary.suggest(word)) != 0:
+                                corrected = corrected.replace(word, f'[color=#ff0000]{word}[/color] '
+                                                                    f'({dictionary.suggest(word)[0]})')
+                            else:
+                                corrected = corrected.replace(word, f'[color=#ff0000]{word}[/color]')
+            Clock.schedule_once(partial(self.UpdLog, corrected))
+
+    def PasteText(self, instance, touch):
+        if touch.button == 'right':
+            self.input_sms.text += pyperclip.paste()

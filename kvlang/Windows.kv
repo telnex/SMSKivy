@@ -8,6 +8,7 @@
     stop_btn: stop_btn
     sym_info: sym_info
     sms_info: sms_info
+
     BoxLayout:
         orientation: 'horizontal'
         padding: 5
@@ -101,15 +102,35 @@
                     Rectangle:
                         size: self.size
                         pos: self.pos
-            TextInput:
-                id: input_sms
-                hint_text: 'Введите текст сообщения...\nНесколько СМС будут отправлены как одно!'
-                size_hint: 1, 1
-                multiline: True
-                padding: 10
-                font_size: 14
-                background_active: 'atlas://data/images/defaulttheme/textinput'
-                background_disabled_normal: 'atlas://data/images/defaulttheme/textinput'
+
+            FloatLayout:
+                TextInput:
+                    pos_hint: {"x":0, "top":1}
+                    id: input_sms
+                    hint_text: 'Введите текст сообщения...\nНесколько СМС будут отправлены как одно!'
+                    size_hint: 1, 1
+                    multiline: True
+                    padding: 10
+                    markup: 1
+                    font_size: 14
+                    background_active: 'atlas://data/images/defaulttheme/textinput'
+                    background_disabled_normal: 'atlas://data/images/defaulttheme/textinput'
+                    on_touch_down:
+                        root.PasteText(*args)
+                Button:
+                    pos_hint: {"x":0.01, "top":0.20}
+                    text: '[u]ABC[/u]'
+                    markup: 1
+                    size_hint: 0.12, None
+                    text_size: self.size
+                    size: 0, 20
+                    font_size: 12
+                    halign: 'center'
+                    valign: 'middle'
+                    background_normal: './style/acc_bg_2.png'
+                    background_down: './style/acc_bg_3.png'
+                    on_release:
+                        root.check_spelling()
             BoxLayout:
                 size_hint: 1, None
                 size: 0, 20
@@ -160,6 +181,7 @@
                     Rectangle:
                         size: self.size
                         pos: self.pos
+
             Button:
                 text: 'СПИСОК РАССЫЛКИ'
                 markup: 1

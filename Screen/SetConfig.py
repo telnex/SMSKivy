@@ -26,7 +26,10 @@ class SetConfig(Screen):
                 connected.append(element.description)
             self.port_lb.text = '[b]ДОСТУПНЫ ДЛЯ ПОДКЛЮЧЕНИЯ:[/b]\n'
             for port in connected:
-                self.port_lb.text += f'[size=12]{port}[/size]\n'
+                if port.find('3G PC UI') != -1:  # FOR iRZ modem
+                    self.port_lb.text += f'[b][size=12]{port}[/size][/b]\n'
+                else:
+                    self.port_lb.text += f'[size=12]{port}[/size]\n'
 
     def JSON(self) -> object:
         with open('./data/config.json', 'r') as f:
