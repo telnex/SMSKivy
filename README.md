@@ -1,7 +1,7 @@
 # СМС-рассылка через GSM-модем
-**Версия:** 1.0.0 | **Python:** 3.9 | **Kivy:** 2.1 | **Gammu:** 3.2.4
+**Версия:** 1.0.1 | **Python:** 3.9 | **Kivy:** 2.1 | **Gammu:** 3.2.4
 
-![Иллюстрация к проекту](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOQifOGxT15hvFsdkp1D8cri-QhD3z5VGk8d6UNqNvWyXcse-6-dtrrpgNvD4JI1ve8my5T6IZiFTl9SnuV4-aCuOwWUnYs-gaVe9e4We6LZQTEBohIBfqJrwDA0SN3-I5jAd-1vFY6ksDdDHRuTt9jOaXIkiIIRX5ScLOFA0j5FdlL0EPTZSI_mjMmA/s1600/photo_2022-07-14_01-38-19.jpg)
+![Иллюстрация к проекту](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3Bd2c4DdhYX0o529_qViF0wTVkM2JUlW6efTStmtZ8D99rHtWHTyuJDHruW0FUFf6XYIiGXprt55TbqYoH6ZvxJF1ZZekUfjOEFnFuBn5ZYmgS7CG2lOaq5K0t-PXZnusiWbHSAJlTjf3o1n_vq1f5Dp5CjykuVemez-kE1UVKH2huiZ9hBZ4rmmeww/s1600/img.png)
 ## Описание программы
 Данное ПО позволяет производить рассылку СМС на указанный список адресатов, количество абонентов и символов в тексте СМС не имеет значения *(рекомендуемый размер СМС: 250-300 символов = 2 СМС)*. Программа поддерживает большинство модемов и gsm-модулей (полный список: [ru.wammu.eu/phones/](https://ru.wammu.eu/phones/)). Функционал программы обусловлен производственной необходимостью, т.е. программа создавалась под конкретные цели, с минимальным функционалом, необходимым для выполнения поставленных задач. 
 При запуске программы происходит инициализация соединения с модемом. В случае, если возникают ошибки, необходимо перезапустить программу.
