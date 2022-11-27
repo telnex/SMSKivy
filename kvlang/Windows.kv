@@ -23,7 +23,7 @@
             orientation: 'vertical'
             spacing: 5
             Label:
-                text: '[b]МОНИТОРИНГ[/b]'
+                text: '[b]МОНИТОРИНГ[/b]' # monitoring
                 markup: 1
                 size_hint: 1, None
                 text_size: self.size
@@ -83,12 +83,12 @@
                     value: 50
                     max: 100
 
-        # ПРАВЫЙ БЛОК - SMS
+        # right block - SMS
         BoxLayout:
             orientation: 'vertical'
             spacing: 5
             Label:
-                text: '[b]СМС[/b]'
+                text: '[b]СМС[/b]' # SMS
                 markup: 1
                 size_hint: 1, None
                 text_size: self.size
@@ -183,7 +183,7 @@
                         pos: self.pos
 
             Button:
-                text: 'СПИСОК РАССЫЛКИ'
+                text: 'СПИСОК РАССЫЛКИ' # DISTRIBUTION LIST
                 markup: 1
                 size_hint: 1, None
                 text_size: self.size
@@ -202,7 +202,7 @@
                 on_release:
                     root.manager.current = 'alertlist'
             Button:
-                text: 'ЖУРНАЛ'
+                text: 'ЖУРНАЛ' # Journal
                 markup: 1
                 size_hint: 1, None
                 text_size: self.size
@@ -221,7 +221,7 @@
                 on_release:
                     root.manager.current = 'eventlog'
             Button:
-                text: 'НАСТРОЙКИ'
+                text: 'НАСТРОЙКИ' # Settings
                 markup: 1
                 size_hint: 1, None
                 text_size: self.size
@@ -245,7 +245,7 @@
                 spacing: 5
                 Button:
                     id: start_btn
-                    text: 'ЗАПУСТИТЬ ОПОВЕЩЕНИЕ'
+                    text: 'ЗАПУСТИТЬ ОПОВЕЩЕНИЕ' # start
                     markup: 1
                     size_hint: 1, None
                     text_size: self.size
@@ -265,7 +265,7 @@
                         root.StartSMS()
                 Button:
                     id: stop_btn
-                    text: 'ОСТАНОВИТЬ'
+                    text: 'ОСТАНОВИТЬ' # Stop
                     markup: 1
                     size_hint: .4, None
                     text_size: self.size
