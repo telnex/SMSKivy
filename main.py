@@ -1,6 +1,5 @@
 import str_text
-import os
-from kivy.app import App
+from kivymd.app import MDApp as App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, NoTransition
 from kivy.config import Config
@@ -26,9 +25,8 @@ def LoadConfig():
 def AppLog(msg):
     data = LoadConfig()
     if data.get('logging', 0) == 1:
-        msg_LOG = f'[color=#616161]{time.strftime("%d.%m.%y %H:%M")}[/color] - {msg}\n'
-        with open('./data/app.log', 'a+') as f:  # a+
-            f.write(msg_LOG)
+        with open(f'./data/log/{time.strftime("%d_%m_%y_%H_%M")}.log', 'a+') as f:  # a+
+            f.write(msg)
 
 
 class MainApp(App):
@@ -42,6 +40,7 @@ class MainApp(App):
 
     def build(self):
         self.title = 'СМС-рассылка'
+        self.theme_cls.theme_style = "Light"
         sm = ScreenManager(transition=NoTransition())
         sm.add_widget(Windows(name='main'))
         sm.add_widget(AlertList(name='alertlist'))
