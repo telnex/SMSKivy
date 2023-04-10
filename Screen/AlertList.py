@@ -5,6 +5,7 @@ from functools import partial
 from kivy.uix.label import Label
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.snackbar import Snackbar
 
 
 class AlertList(Screen):
@@ -29,7 +30,7 @@ class AlertList(Screen):
         if len(self.js_data['data']['number']) == 0:
             self.float_btn.add_widget(Label(text=st.em_book,
                                             valign='top', halign='center',
-                                            markup='1'))
+                                            markup='1', color='black'))
         else:
             for i in self.js_data['data']['number']:
                 self.allName.append(i)
@@ -41,10 +42,11 @@ class AlertList(Screen):
                 btn = ToggleButton(text=name, size_hint_y=None, background_normal='',
                                    background_color=(0.05, 0.42, 0.24, 1), font_size=14)
                 btn.size = (0, 35)
+                # btn.size = (len(f_name) * 15, 35) # for StackLayout
                 btn.bind(on_release=partial(self.AddNewTel, f_name))
                 self.float_btn.add_widget(btn)
 
-    def AddNewTel(self, name, i=False):
+    def AddNewTel(self, name, j=False):
         number = self.js_data['data']['number'][name]
         with open('./data/dist_list.json', 'r') as f:
             dist_list = json.load(f)
@@ -115,12 +117,10 @@ class AlertList(Screen):
             with open('./data/data.json', 'w') as f:
                 json.dump(w, f)
             self.LoadBtn()
-            self.info('[b]Данные сохранены![/b]')
+            Snackbar(text="Данные сохранены!", snackbar_x="10dp", snackbar_y="10dp", size_hint_x=.4, bg_color=(0.05, 0.42, 0.24, 1)).open()
         else:
-            self.info(error_msg)
-
-    def info(self, msg):
-        self.label_info.text = msg
+            Snackbar(text=error_msg, snackbar_x="10dp", snackbar_y="10dp", size_hint_x=.8,
+                     bg_color=(0.64, 0.13, 0.13, 1)).open()
 
     def DelList(self):
         self.ClearDistList()

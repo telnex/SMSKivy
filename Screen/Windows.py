@@ -1,3 +1,6 @@
+# Скопировать «ru_RU.aff» и «ru_RU.dic» с https://github.com/LibreOffice/dictionaries/tree/master/ru_RU
+# в C:\...\site-packages\enchant\data\mingw64\share\enchant\hunspell»
+
 import json
 import gammu
 import threading
@@ -7,6 +10,8 @@ import pyperclip
 import enchant
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.button import MDRaisedButton
+from kivymd.uix.dialog import MDDialog
 from functools import partial
 from kivy.clock import Clock
 from main import AppLog
@@ -30,6 +35,7 @@ class Windows(Screen):
         self.info_label.text = '[b]СТАТУС:[/b] РАССЫЛКА НЕ ЗАПУЩЕНА'
         self.progress_bar.value = 0
         self.stop = False
+        self.dialog = None
         self.start_btn.disabled = True
         self.stop_btn.disabled = True
         Clock.schedule_interval(self.SymSMS_info, 0.3)
@@ -80,8 +86,9 @@ class Windows(Screen):
             mess = f'[color=#616161]{time.strftime("%H:%M")}[/color] - {msg}\n'
         self.log.text += mess
 
-    def StartSMS(self):
+    def StartSMS(self, *args):
         """ Запускаем отправку смс в отдельном потоке """
+        self.close_alert()
         threading.Thread(target=self.GammuStart).start()
 
     def GammuStart(self):
@@ -89,6 +96,7 @@ class Windows(Screen):
         data_tel = self.LoadNum()
         allName = {}
         count = 0
+        msg_log = ''
         error = False
         self.stop = False
         self.progress_bar.value = 0
@@ -133,12 +141,12 @@ class Windows(Screen):
                         ],
                     }
                     encoded = gammu.EncodeSMS(sms_info)
-                    msg = f'[b]ОТПРАВКА СМС[/b]\nТекст: [i]{sms_text}[/i]'
-                    AppLog(msg)
+                    msg_log += self.LogStr(f'[b]ОТПРАВКА СМС[/b]\nТекст: {sms_text}')
                     for tel in allName:
                         if self.stop:
-                            msg = 'РАССЫЛКА ОСТАНОВЛЕНА!'
-                            AppLog(msg)
+                            msg = '[b]РАССЫЛКА ОСТАНОВЛЕНА![/b]'
+                            msg_log += self.LogStr(msg)
+                            AppLog(msg_log)
                             Clock.schedule_once(partial(self.UpdLog, msg))
                             self.info_label.text = f'[b]СТАТУС:[/b] РАССЫЛКА ОСТАНОВЛЕНА | ' \
                                                    f'[b]ОПОВЕЩЕНО: {count} ИЗ {len(allName)}[/b]'
@@ -156,13 +164,13 @@ class Windows(Screen):
                                 except gammu.GSMError as e:
                                     err = eval(str(e))
                                     msg = f'ОШИБКА: {tel} -> {err["Text"]}'
-                                    AppLog(msg)
+                                    msg_log += self.LogStr(msg)
                                     Clock.schedule_once(partial(self.UpdLog, msg, err=True))
                                     error = True
                                     # state_machine.Terminate()
                             if not error:
                                 msg = f'[b]{allName[tel]}[/b] - оповещён.'
-                                AppLog(msg)
+                                msg_log += self.LogStr(msg)
                                 self.progress_bar.value = self.progress_bar.value + progress_count
                                 Clock.schedule_once(partial(self.UpdLog, msg))
                                 count = count + 1
@@ -170,9 +178,16 @@ class Windows(Screen):
                                                        f'[b]ОПОВЕЩЕНО: {count} ИЗ {len(allName)}[/b]'
                             else:
                                 error = False
+                    # счетчик сообщений
+                    with open('./data/config.json', 'r') as f:
+                        count_mess = json.load(f)
+                    count_mess = count_mess + 1
+                    with open('./data/config.json', 'w') as f:
+                        json.dump(count_mess, f)
 
-                    msg = f'РАССЫЛКА ЗАВЕРШЕНА\nОПОВЕЩЕНО: {count} ИЗ {len(allName)}\n'
-                    AppLog(msg)
+                    msg = f'[b]РАССЫЛКА ЗАВЕРШЕНА.[/b] Оповещено: {count} из {len(allName)}\n'
+                    msg_log += self.LogStr(msg)
+                    AppLog(msg_log)
                     Clock.schedule_once(partial(self.UpdLog, msg))
                     self.info_label.text = f'[b]СТАТУС:[/b] РАССЫЛКА ЗАВЕРШЕНА | ' \
                                            f'[b]ОПОВЕЩЕНО:[/b] {count} ИЗ {len(allName)}'
@@ -185,6 +200,10 @@ class Windows(Screen):
         with open('./data/dist_list.json', 'r') as f:
             data = json.load(f)
         return data
+
+    def LogStr(self, msg: str):
+        j = f'[color=#616161]{time.strftime("%d.%m.%y %H:%M")}[/color] - {msg}\n'
+        return j
 
     def stop_send(self):
         self.stop = True
@@ -202,6 +221,7 @@ class Windows(Screen):
         threading.Thread(target=self.spelling).start()
 
     def spelling(self):
+        """  Проверка орфографии """
         text = self.input_sms.text.split()
         dictionary = enchant.Dict("ru_RU")
         if len(text) != 0:
@@ -220,5 +240,33 @@ class Windows(Screen):
             Clock.schedule_once(partial(self.UpdLog, corrected))
 
     def PasteText(self, instance, touch):
+        """ Вставка текста ПКМ """
         if touch.button == 'right':
             self.input_sms.text += pyperclip.paste()
+
+    def show_alert(self):
+        """ Подтверждение запуска рассылки """
+        self.dialog = MDDialog(
+            title='Запустить рассылку?',
+            text="[color=#1a1a1a][size=14]Проверьте содержимое СМС и список рассылки![/size][/color]",
+            md_bg_color='white',
+            buttons=[
+                MDRaisedButton(
+                    text="ОТМЕНА",
+                    theme_text_color="Custom",
+                    md_bg_color='#0d6b3d',
+                    on_release=self.close_alert,
+                ),
+                MDRaisedButton(
+                    text="ДА",
+                    theme_text_color="Custom",
+                    md_bg_color='#0d6b3d',
+                    on_release=self.StartSMS,
+                ),
+            ],
+        )
+        self.dialog.open()
+
+    def close_alert(self, *args):
+        """ Закрыть подтверждение """
+        self.dialog.dismiss()

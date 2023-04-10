@@ -1,5 +1,6 @@
 <EventLog>
-    label_log: label_log
+    table: table
+    count: count
     BoxLayout:
         orientation: 'vertical'
         padding: 5
@@ -25,29 +26,15 @@
                 Rectangle:
                     size: self.size
                     pos: self.pos
-        ScrollView:
-            do_scroll_x: False
-            do_scroll_y: True
-            canvas.before:
-                Color:
-                    rgba: (1, 1, 1, 1)
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
+        BoxLayout:
+            id: table
 
-            Label:
-                id: label_log
-                size_hint_y: None
-                height: self.texture_size[1]
-                text_size: self.width, None
-                padding: 10, 10
-                markup: 1
-                color: (0, 0, 0, 1)
-                font_size: 14
         BoxLayout:
             size_hint: 1, None
             size: 0, 30
             Label:
+                id: count
+
 
             Button:
                 text: 'ОЧИСТИТЬ'

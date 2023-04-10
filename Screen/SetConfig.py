@@ -2,6 +2,7 @@ import json
 import serial.tools.list_ports
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
+from kivymd.uix.snackbar import Snackbar
 
 
 class SetConfig(Screen):
@@ -26,10 +27,11 @@ class SetConfig(Screen):
                 connected.append(element.description)
             self.port_lb.text = '[b]ДОСТУПНЫ ДЛЯ ПОДКЛЮЧЕНИЯ:[/b]\n'
             for port in connected:
-                if port.find('3G PC UI') != -1:  # FOR iRZ modem
+                if port.find('3G PC UI') != -1:  # FOR iRZ/E3xx modem
                     self.port_lb.text += f'[b][size=12]{port}[/size][/b]\n'
                 else:
                     self.port_lb.text += f'[size=12]{port}[/size]\n'
+
 
     def JSON(self) -> object:
         with open('./data/config.json', 'r') as f:
@@ -37,7 +39,8 @@ class SetConfig(Screen):
         return data
 
     def SaveConfig(self):
-        w = {}
+        """ Сохранить настройки """
+        w = self.JSON()
         Error = False
         if not Error:
             w['com_port'] = self.com_port.text.strip()
@@ -55,3 +58,5 @@ class SetConfig(Screen):
                 gammuConfig = f"[gammu]\ndevice = {w['com_port']}\nconnection = at"
             with open('gammurc', 'w') as f:
                 f.write(gammuConfig)
+            Snackbar(text="Настройки сохранены!", snackbar_x="10dp", snackbar_y="10dp", size_hint_x=.4,
+                     bg_color=(0.05, 0.42, 0.24, 1)).open()

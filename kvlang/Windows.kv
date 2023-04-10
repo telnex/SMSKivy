@@ -181,7 +181,6 @@
                     Rectangle:
                         size: self.size
                         pos: self.pos
-
             Button:
                 text: 'СПИСОК РАССЫЛКИ' # DISTRIBUTION LIST
                 markup: 1
@@ -262,7 +261,7 @@
                             width: 1
                             rectangle: self.x, self.y, self.width, self.height
                     on_release:
-                        root.StartSMS()
+                        root.show_alert()
                 Button:
                     id: stop_btn
                     text: 'ОСТАНОВИТЬ' # Stop
