@@ -106,3 +106,6 @@ exe = EXE(pyz,
 
 ### Не работает проверка орфографии
 Необходимо скопировать «ru_RU.aff» и «ru_RU.dic» с [github.com/LibreOffice](https://github.com/LibreOffice/dictionaries/tree/master/ru_RU) в ``` C:\...\site-packages\enchant\data\mingw64\share\enchant\hunspell```.
+
+## Обратная связь
+Используйте форум GitHub,что сообщить о найденных багах в программе, [ссылка на топик](https://github.com/telnex/SMSKivy/discussions/1).
