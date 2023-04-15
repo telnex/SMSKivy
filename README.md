@@ -105,4 +105,4 @@ exe = EXE(pyz,
 Инициализация модема происходит при запуске программы и при отправке СМС. В случае некорректной работы, необходимо перезагрузить приложение.
 
 ### Не работает проверка орфографии
-Необходимо скопировать «ru_RU.aff» и «ru_RU.dic» с [github.com/LibreOffice](https://github.com/LibreOffice/dictionaries/tree/master/ru_RU) в ``` C:\Users\Admin\AppData\Local\Programs\Python\Python310\Lib\site-packages\enchant\data\mingw64\share\enchant\hunspell```.
+Необходимо скопировать «ru_RU.aff» и «ru_RU.dic» с [github.com/LibreOffice](https://github.com/LibreOffice/dictionaries/tree/master/ru_RU) в ``` C:\...\site-packages\enchant\data\mingw64\share\enchant\hunspell```.
