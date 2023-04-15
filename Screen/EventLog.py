@@ -1,4 +1,4 @@
-# ВАЖНО: C:\..\Python39\Lib\site-packages\kivymd\uix\datatables\datatables.kv
+# ВАЖНО: C:\Users\Admin\AppData\Local\Programs\Python\Python310\Lib\site-packages\kivymd\uix\datatables
 # удалил tooltip | ну а как иначе :(
 
 import os
@@ -21,7 +21,7 @@ class EventLog(Screen):
         self.table_data()
         with open('./data/config.json', 'r') as f:
             j = json.load(f)
-        self.count.text = f'Сообщений отправлено: {j["Count"]}'
+        self.count.text = f'Сообщений отправлено: {j["count"]}'
 
     def table_data(self):
         """ Структура таблицы """
@@ -31,7 +31,7 @@ class EventLog(Screen):
             row_data=self.sent_sms(),
             use_pagination=True,
             column_data=[
-                ("Дата", dp(30), "DHTVZ"),
+                ("Дата", dp(30)),
                 ("Сообщение", dp(1000))
             ],
             elevation=0,
@@ -40,7 +40,7 @@ class EventLog(Screen):
         self.data_tables.bind(on_row_press=self.on_row_press)
         self.table.add_widget(layout)
 
-    def DelLog(self):
+    def dell_log(self):
         """ Удаление ЛОГА """
         folder = os.getcwd() + ".\data\log"
         for f in os.listdir(folder):
@@ -72,8 +72,12 @@ class EventLog(Screen):
                         dt = filelog[:-4].replace('_', '.', 2)
                         dt = dt.replace('_', ' ', 1)
                         dt = dt.replace('_', ':', 1)
-                        a = ('[size=14]' + dt + '[/size]', '[size=14]' + r.split('\n')[1] + '[/size]')
+                        text = r.split('\n')[1]
+                        if len(text) > 10:
+                            text = text[:80] + '...'
+                        a = (f'[size=14]{dt}[/size]', f'[size=14]{text}[/size]')
                         row_data.append(a)
+            row_data.reverse()
         return row_data
 
     def show_alert(self, text: str):

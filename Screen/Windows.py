@@ -114,7 +114,7 @@ class Windows(Screen):
                 self.stop_btn.disabled = False
                 self.start_btn.disabled = True
                 self.info_label.text = f'[b]СТАТУС:[/b] РАССЫЛКА ЗАПУЩЕНА | [b]ОПОВЕЩЕНО:[/b] {count} ИЗ {len(allName)}'
-                msg = f'РАССЫЛКА ЗАПУЩЕНА. Абонентов - {len(allName)}'
+                msg = f'[b]РАССЫЛКА ЗАПУЩЕНА[/b] | Абонентов - {len(allName)}'
                 Clock.schedule_once(partial(self.UpdLog, msg))
                 state_machine = gammu.StateMachine()
                 state_machine.ReadConfig()
@@ -169,7 +169,7 @@ class Windows(Screen):
                                     error = True
                                     # state_machine.Terminate()
                             if not error:
-                                msg = f'[b]{allName[tel]}[/b] - оповещён.'
+                                msg = f'{allName[tel]} - оповещён.'
                                 msg_log += self.LogStr(msg)
                                 self.progress_bar.value = self.progress_bar.value + progress_count
                                 Clock.schedule_once(partial(self.UpdLog, msg))
@@ -181,11 +181,11 @@ class Windows(Screen):
                     # счетчик сообщений
                     with open('./data/config.json', 'r') as f:
                         count_mess = json.load(f)
-                    count_mess = count_mess + 1
+                    count_mess['count'] = count_mess['count'] + 1
                     with open('./data/config.json', 'w') as f:
                         json.dump(count_mess, f)
 
-                    msg = f'[b]РАССЫЛКА ЗАВЕРШЕНА.[/b] Оповещено: {count} из {len(allName)}\n'
+                    msg = f'[b]РАССЫЛКА ЗАВЕРШЕНА[/b] | Оповещено: {count} из {len(allName)}\n'
                     msg_log += self.LogStr(msg)
                     AppLog(msg_log)
                     Clock.schedule_once(partial(self.UpdLog, msg))
