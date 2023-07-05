@@ -1,5 +1,9 @@
 # :loudspeaker: СМС-рассылка через GSM-модем
-### **Версия:** 1.0.2 
+
+> This program allows you to send SMS via a USB modem, the number of subscribers and characters in the SMS text does not matter.
+The program supports most modems and gsm modules (full list: [en.wammu.eu/phones/](https://en.wammu.eu/phones/)). Tested on iRZ TU32 and Huawei E352 modems.
+
+### **Версия:** 1.0.2
 ![Python 3.10](https://img.shields.io/badge/Python-3.10-blue?style=flat-square&logo=appveyor) ![Kivy 2.1.0](https://img.shields.io/badge/Kivy-2.1.0-blue?style=flat-square&logo=appveyor) ![Kivymd 1.1.1](https://img.shields.io/badge/KivyMD-1.1.1-blue?style=flat-square&logo=appveyor) ![Gammu 3.2.4](https://img.shields.io/badge/Gammu-3.2.4-blue?style=flat-square&logo=appveyor) ![Pyserial 3.5](https://img.shields.io/badge/Pyserial-3.5-blue?style=flat-square&logo=appveyor)  ![Enchant 0.0.1](https://img.shields.io/badge/Enchant-0.0.1-blue?style=flat-square&logo=appveyor) ![Pyperclip 1.8.2](https://img.shields.io/badge/Pyperclip-1.8.2-blue?style=flat-square&logo=appveyor)
 
 ![Иллюстрация к проекту](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3Bd2c4DdhYX0o529_qViF0wTVkM2JUlW6efTStmtZ8D99rHtWHTyuJDHruW0FUFf6XYIiGXprt55TbqYoH6ZvxJF1ZZekUfjOEFnFuBn5ZYmgS7CG2lOaq5K0t-PXZnusiWbHSAJlTjf3o1n_vq1f5Dp5CjykuVemez-kE1UVKH2huiZ9hBZ4rmmeww/s1600/img.png)
